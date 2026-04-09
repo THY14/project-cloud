@@ -13,8 +13,8 @@ module "s3" {
 }
 
 module "iam" {
-  source       = "./modules/iam"
-  project_name = var.project_name
+  source        = "./modules/iam"
+  project_name  = var.project_name
   s3_bucket_arn = module.s3.bucket_arn
 }
 
@@ -26,14 +26,14 @@ module "alb" {
 }
 
 module "asg" {
-  source              = "./modules/asg"
-  project_name        = var.project_name
-  instance_type       = var.instance_type
-  public_subnet_ids   = module.vpc.public_subnet_ids
-  vpc_id              = module.vpc.vpc_id
-  target_group_arn    = module.alb.target_group_arn
+  source               = "./modules/asg"
+  project_name         = var.project_name
+  instance_type        = var.instance_type
+  public_subnet_ids    = module.vpc.public_subnet_ids
+  vpc_id               = module.vpc.vpc_id
+  target_group_arn     = module.alb.target_group_arn
   iam_instance_profile = module.iam.instance_profile_name
-  security_group_id   = module.alb.ec2_sg_id
+  security_group_id    = module.alb.ec2_sg_id
 }
 
 module "rds" {
